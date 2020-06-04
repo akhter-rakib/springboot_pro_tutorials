@@ -4,7 +4,10 @@ import com.rakib.springboot_pro.entity.Product;
 import com.rakib.springboot_pro.service.ProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 
 @Controller
@@ -24,9 +27,19 @@ public class ProductController {
     }
 
     @PostMapping(value = "/saveProduct")
-    public String saveProduct(@ModelAttribute Product product, Model model) {
-        productService.save(product);
-        return "redirect:/";
+    public String saveProduct(@Valid @ModelAttribute Product product, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "product";
+        }
+        product = productService.save(product);
+        if (product != null) {
+            model.addAttribute("result", "Record Saved Successfully");
+        } else {
+            model.addAttribute("result", "Record not Saved Successfully");
+        }
+        model.addAttribute("product", new Product());
+        model.addAttribute("productList", productService.findAll());
+        return "product";
     }
 
     @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)

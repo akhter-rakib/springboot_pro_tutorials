@@ -1,5 +1,6 @@
 package com.rakib.springboot_pro.service.impl;
 
+import com.rakib.springboot_pro.config.ActiveStatus;
 import com.rakib.springboot_pro.entity.Product;
 import com.rakib.springboot_pro.repository.ProductRepository;
 import com.rakib.springboot_pro.service.ProductService;
@@ -18,13 +19,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void save(Product product) {
-        productRepository.save(product);
+    public Product save(Product product) {
+        product.setActiveStatus(ActiveStatus.ACTIVE.getValue());
+        return productRepository.save(product);
     }
 
     @Override
     public List<Product> findAll() {
-        return productRepository.findAll();
+        return productRepository.list(ActiveStatus.ACTIVE.getValue());
     }
 
     @Override
@@ -32,7 +34,8 @@ public class ProductServiceImpl implements ProductService {
         Optional<Product> productOptional = productRepository.findById(id);
         if (productOptional.isPresent() && productOptional.get() != null) {
             Product product = productOptional.get();
-            productRepository.delete(product);
+            product.setActiveStatus(ActiveStatus.DELETE.getValue());
+            productRepository.save(product);
         }
     }
 

@@ -1,19 +1,24 @@
 package com.rakib.springboot_pro.entity;
 
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotEmpty(message = "You should have to give the name")
     private String name;
     private String brand;
     private String madeIn;
     private Double price;
+    private Integer activeStatus;
 
     public Long getId() {
         return id;
@@ -55,6 +60,14 @@ public class Product {
         this.price = price;
     }
 
+    public Integer getActiveStatus() {
+        return activeStatus;
+    }
+
+    public void setActiveStatus(Integer activeStatus) {
+        this.activeStatus = activeStatus;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
@@ -63,6 +76,7 @@ public class Product {
                 ", brand='" + brand + '\'' +
                 ", madeIn='" + madeIn + '\'' +
                 ", price=" + price +
+                ", activeStatus=" + activeStatus +
                 '}';
     }
 }

@@ -11,6 +11,7 @@
 
     <form th:action="@{/saveProduct}" th:object="${product}" method="post">
         <center><h3>Product Entry Point</h3></center>
+        <center><p th:inline="text">[[${result}]]</p></center>
         <input type="hidden" th:field="*{id}">
         <div class="form-group row">
             <label class="col-md-4 col-form-label text-md-right">Product Name</label>
