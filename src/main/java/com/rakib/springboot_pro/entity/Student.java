@@ -1,51 +1,26 @@
 package com.rakib.springboot_pro.entity;
 
-import com.sun.istack.NotNull;
-import org.hibernate.annotations.GeneratorType;
+import lombok.Getter;
+import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Setter
+@Getter
 @Entity
-@Table(name = "student_record")
+@Table(name = "student")
 public class Student {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long studentId;
-    @Column(name = "Chatro_Name")
-    private String studentName;
+    @Column(name = "student_name")
+    private String name;
     private int rollNo;
-
-    public long getStudentId() {
-        return studentId;
-    }
-
-    public void setStudentId(long studentId) {
-        this.studentId = studentId;
-    }
-
-    public String getStudentName() {
-        return studentName;
-    }
-
-    public void setStudentName(String studentName) {
-        this.studentName = studentName;
-    }
-
-    public int getRollNo() {
-        return rollNo;
-    }
-
-    public void setRollNo(int rollNo) {
-        this.rollNo = rollNo;
-    }
-
-    @Override
-    public String toString() {
-        return "Student{" +
-                "studentId=" + studentId +
-                ", studentName='" + studentName + '\'' +
-                ", rollNo=" + rollNo +
-                '}';
-    }
+    private String mobileNo;
 }
